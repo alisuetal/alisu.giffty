@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class TextFieldWidget extends StatefulWidget {
   final String? text;
   final int type;
-  final Function anchor;
+  final void Function(String price) anchor;
 
   const TextFieldWidget({
     Key? key,
@@ -22,6 +22,13 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   void initState() {
+    switch (widget.type) {
+      case 1:
+        _textController.text = widget.text ?? "0.00";
+        break;
+      default:
+        _textController.text = widget.text ?? "";
+    }
     _textController.addListener(() {
       widget.anchor(_textController.text);
     });
@@ -98,7 +105,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
             style: Theme.of(context).textTheme.headline5,
             cursorColor: Colors.white,
           ),
-          if (widget.text != null && widget.text != "" && widget.text != "0,00")
+          if (_textController.text != "" && _textController.text != "0,00")
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [

@@ -5,6 +5,9 @@ import 'package:giffty_flutter/components/header_widget.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
 
 class HomeScreen extends StatelessWidget {
+  final String giftIllustration =
+      'assets/imgs/illustrations/giftIllustration.svg';
+  final String nextIcon = 'assets/imgs/icons/nextIcon.svg';
   const HomeScreen({Key? key}) : super(key: key);
 
   void _nextPage(BuildContext context) {
@@ -23,9 +26,11 @@ class HomeScreen extends StatelessWidget {
           bottom: 20,
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const HeaderWidget(goBack: false),
                 Padding(
@@ -46,14 +51,20 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            SvgPicture.asset(
-              "assets/imgs/illustrations/giftIllustration.svg",
-              height: 200,
-              fit: BoxFit.fitWidth,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  giftIllustration,
+                  height: 200,
+                  fit: BoxFit.fitWidth,
+                  semanticsLabel: 'A 3D gift illustration',
+                ),
+              ],
             ),
             ButtonWidget(
               text: "Start",
-              assetIcon: "assets/imgs/icons/nextIcon.svg",
+              assetIcon: nextIcon,
               function: () => _nextPage(context),
               enabled: true,
             )

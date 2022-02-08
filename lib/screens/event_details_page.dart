@@ -1,32 +1,40 @@
+import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:giffty_flutter/components/button_widget.dart';
 import 'package:giffty_flutter/components/header_widget.dart';
 import 'package:giffty_flutter/components/text_field.dart';
+import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
+import 'package:giffty_flutter/utils/tools.dart';
+import 'package:provider/provider.dart';
 
 class EventDetailsPage extends StatefulWidget {
-  const EventDetailsPage({Key? key}) : super(key: key);
+  final int? initialPrice;
+  const EventDetailsPage({Key? key, this.initialPrice}) : super(key: key);
 
   @override
   State<EventDetailsPage> createState() => _EventDetailsPageState();
 }
 
 class _EventDetailsPageState extends State<EventDetailsPage> {
-  String price = "";
+  String price = "0.00";
+
+  @override
+  void initState() {
+    if (widget.initialPrice != null && widget.initialPrice != 0) {
+      price = widget.initialPrice.toString();
+    }
+    super.initState();
+  }
 
   void _nextPage(BuildContext context) {
     Navigator.of(context).pushNamed(AppRoutes.EVENT_DETAILS);
   }
 
-  void _getPrice(String price) {
-    setState(() {
-      this.price = price;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final event = Provider.of<Event>(context, listen: false);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.primary,
       body: SingleChildScrollView(
@@ -50,10 +58,14 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "Let’s set the budget first.",
-                            style: Theme.of(context).textTheme.headline1,
-                            textAlign: TextAlign.justify,
+                          Flexible(
+                            child: Text(
+                              "Let’s set the budget first.",
+                              style: Theme.of(context).textTheme.headline1,
+                              textAlign: TextAlign.justify,
+                              softWrap: true,
+                              overflow: TextOverflow.clip,
+                            ),
                           ),
                         ],
                       ),
@@ -70,15 +82,29 @@ class _EventDetailsPageState extends State<EventDetailsPage> {
                   children: [
                     TextFieldWidget(
                       type: 1,
-                      anchor: (String price) => _getPrice(price),
+                      anchor: (String price) {
+                        setState(() {
+                          this.price = price;
+                        });
+                      },
+                      text: widget.initialPrice != null
+                          ? Tools().formatPrice(widget.initialPrice!)
+                          : null,
                     ),
                     const SizedBox(
                       height: 20,
                     ),
                     ButtonWidget(
-                      text: price.isNotEmpty ? "Start" : "Skip",
+                      text:
+                          (price.isNotEmpty && price != "0" && price != "0.00")
+                              ? "Next"
+                              : "Skip",
                       assetIcon: "assets/imgs/icons/nextIcon.svg",
-                      function: () => _nextPage(context),
+                      function: () {
+                        _nextPage(context);
+                        event.setPrice(int.parse(
+                            price.replaceAll('.', '').replaceAll(",", '')));
+                      },
                       enabled: price.isNotEmpty,
                     ),
                   ],

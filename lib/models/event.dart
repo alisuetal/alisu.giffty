@@ -13,6 +13,10 @@ class Event with ChangeNotifier {
     return _guests.length;
   }
 
+  int get price {
+    return _price ?? 0;
+  }
+
   List<Guest> get guests {
     return [..._guests];
   }
