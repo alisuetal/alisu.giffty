@@ -2,19 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:giffty_flutter/components/button_widget.dart';
 import 'package:giffty_flutter/components/header_widget.dart';
-import 'package:giffty_flutter/utils/app_routes.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 
-class HomeScreen extends StatelessWidget {
+class EndScreen extends StatelessWidget {
   final String giftIllustration =
       'assets/imgs/illustrations/giftIllustration.svg';
   final String nextIcon = 'assets/imgs/icons/nextIcon.svg';
   final void Function(BuildContext) headerFunction;
 
-  const HomeScreen({Key? key, required this.headerFunction}) : super(key: key);
+  const EndScreen({Key? key, required this.headerFunction}) : super(key: key);
 
-  void _nextScreen(BuildContext context) {
-    Navigator.of(context).pushNamed(AppRoutes.EVENT_DETAILS);
+  void _useAgain(BuildContext context) {
+    Navigator.popUntil(context, ModalRoute.withName('/'));
   }
 
   @override
@@ -45,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 24),
                       child: Text(
-                        "Need an app to help you host a Secret Santa?",
+                        "The game is on!",
                         style: Theme.of(context).textTheme.headline1,
                         textAlign: TextAlign.justify,
                       ),
@@ -53,7 +52,7 @@ class HomeScreen extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(top: 8),
                       child: Text(
-                        "Enter the names, gift suggestions, and more for free!",
+                        "Hope you enjoyed using the app.",
                         style: Theme.of(context).textTheme.headline2,
                         textAlign: TextAlign.justify,
                       ),
@@ -72,9 +71,9 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
                 ButtonWidget(
-                  text: "Start",
-                  materialIcon: Icons.arrow_forward_rounded,
-                  function: () => _nextScreen(context),
+                  text: "Use again",
+                  materialIcon: Icons.refresh_rounded,
+                  function: () => _useAgain(context),
                   enabled: true,
                 )
               ],

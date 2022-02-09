@@ -36,6 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.0.3
   easy_mask: ^2.0.1
+  provider: ^6.0.2
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -67,6 +69,7 @@ flutter:
     - assets/imgs/icons/nextIcon.svg
     - assets/imgs/icons/removeIcon.svg
     - assets/imgs/icons/settingsIcon.svg
+    - assets/imgs/icons/addIcon.svg
     - assets/imgs/illustrations/darkPairIllustration.svg
     - assets/imgs/illustrations/giftIllustration.svg
     - assets/imgs/illustrations/guestIllustration.svg
@@ -85,17 +88,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Mirage
+    - family: Coolvetica
       fonts:
-        - asset: assets/fonts/Mirage_Regular.otf
-        - asset: assets/fonts/Mirage_Thin.otf
-          weight: 200
-        - asset: assets/fonts/Mirage_Medium.otf
-          weight: 500
-        - asset: assets/fonts/Mirage_Bold.otf
-          weight: 700
-        - asset: assets/fonts/Mirage_Black.otf
-          weight: 900
+        - asset: assets/fonts/Coolvetica.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

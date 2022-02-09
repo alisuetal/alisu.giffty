@@ -3,7 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class HeaderWidget extends StatelessWidget {
   final bool goBack;
-  const HeaderWidget({Key? key, required this.goBack}) : super(key: key);
+  final void Function(BuildContext) headerFunction;
+  const HeaderWidget(
+      {Key? key, required this.goBack, required this.headerFunction})
+      : super(key: key);
 
   void _goBack(BuildContext context) {
     Navigator.of(context).pop();
@@ -18,13 +21,10 @@ class HeaderWidget extends StatelessWidget {
         if (goBack)
           GestureDetector(
             onTap: () => _goBack(context),
-            child: RotatedBox(
-              quarterTurns: 2,
-              child: SvgPicture.asset(
-                "assets/imgs/icons/nextIcon.svg",
-                height: 24,
-                fit: BoxFit.scaleDown,
-              ),
+            child: Icon(
+              Icons.arrow_back_ios_rounded,
+              size: 36,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         Row(
@@ -32,7 +32,7 @@ class HeaderWidget extends StatelessWidget {
           children: [
             SvgPicture.asset(
               "assets/imgs/logo.svg",
-              height: 28,
+              height: 36,
               fit: BoxFit.scaleDown,
             ),
             const SizedBox(
@@ -40,14 +40,21 @@ class HeaderWidget extends StatelessWidget {
             ),
             Text(
               "Giffty",
-              style: Theme.of(context).textTheme.headline3,
+              style: TextStyle(
+                fontFamily: "Coolvetica",
+                fontSize: 36,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
           ],
         ),
-        SvgPicture.asset(
-          "assets/imgs/icons/settingsIcon.svg",
-          height: 36,
-          fit: BoxFit.scaleDown,
+        GestureDetector(
+          onTap: () => headerFunction(context),
+          child: SvgPicture.asset(
+            "assets/imgs/icons/settingsIcon.svg",
+            height: 36,
+            fit: BoxFit.scaleDown,
+          ),
         ),
       ],
     );

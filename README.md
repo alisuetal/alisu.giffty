@@ -17,22 +17,17 @@ The project will be under Alpha Stage while the taks below are not completed.
 - - [x] Retrieve price limit;
 
 - [PAGE] GuestsScreen:
-- - [ ] Show guests;
-- - [ ] Add guests;
-- - [ ] Remove guests;
+- - [X] Show guests;
+- - [X] Add guests;
+- - [X] Remove guests;
 
 - [PAGE] DarkPairScreen:
-- - [ ] Show DarkPairs;
-- - [ ] Add DarkPairs;
-- - [ ] Remove DarkPairs;
+- - [X] Show DarkPairs;
+- - [X] Add DarkPairs;
+- - [X] Remove DarkPairs;
 
 - [PAGE] ShowPairScreen:
-- - [ ] Show each pair;
-
-- [COMPONENTS]:
-- - [ ] Currency changer;
-- - [ ] Language changer;
-- - [ ] Global options modal;
+- - [X] Show each pair;
   
 ## 💻 Requirements
 

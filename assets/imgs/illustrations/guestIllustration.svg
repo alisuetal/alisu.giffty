@@ -1,6 +1,6 @@
-<svg width="204" height="180" viewBox="0 0 204 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.5001 156.5C38.3212 198.649 52.5706 67 102 67C151.43 67 165.679 198.649 191.5 156.5C205.372 133.856 205.372 111.144 191.5 88.5C165.679 46.3509 151.43 178 102 178C52.5706 178 38.3212 46.3509 12.5001 88.5C-1.3721 111.144 -1.3721 133.856 12.5001 156.5Z" stroke="white" stroke-width="3"/>
-<circle cx="23" cy="50" r="15.5" stroke="white" stroke-width="3"/>
-<circle cx="102" cy="25" r="23.5" stroke="white" stroke-width="3"/>
-<circle cx="181" cy="50" r="15.5" stroke="white" stroke-width="3"/>
+<svg width="206" height="181" viewBox="0 0 206 181" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M13.5001 156.5C39.3212 198.649 53.5706 67 103 67C152.43 67 166.679 198.649 192.5 156.5C206.372 133.856 206.372 111.144 192.5 88.5C166.679 46.3509 152.43 178 103 178C53.5706 178 39.3212 46.3509 13.5001 88.5C-0.372101 111.144 -0.372101 133.856 13.5001 156.5Z" stroke="white" stroke-width="6"/>
+<circle cx="24" cy="50" r="14" stroke="white" stroke-width="6"/>
+<circle cx="103" cy="25" r="22" stroke="white" stroke-width="6"/>
+<circle cx="182" cy="50" r="14" stroke="white" stroke-width="6"/>
 </svg>

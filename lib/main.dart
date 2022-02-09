@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:giffty_flutter/models/event.dart';
-import 'package:giffty_flutter/screens/event_details_page.dart';
+import 'package:giffty_flutter/screens/dark_pairs_screen.dart';
+import 'package:giffty_flutter/screens/end_screen.dart';
+import 'package:giffty_flutter/screens/event_details_screen.dart';
+import 'package:giffty_flutter/screens/guests_screen.dart';
 import 'package:giffty_flutter/screens/home_screen.dart';
+import 'package:giffty_flutter/screens/instructions_screen.dart';
+import 'package:giffty_flutter/screens/pair_reveal_screen.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +15,8 @@ import 'package:provider/provider.dart';
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Color(0xFF000000),
-      systemNavigationBarColor: Color(0xFF000000),
+      statusBarColor: PaletteColor.secondary,
+      systemNavigationBarColor: PaletteColor.secondary,
       statusBarIconBrightness: Brightness.light,
       systemNavigationBarIconBrightness: Brightness.light,
     ),
@@ -22,7 +27,16 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
+  void _openHeaderModal(BuildContext context) {
+    // showModalBottomSheet(
+    //   context: context,
+    //   builder: (_) {
+    //     return Container();
+    //   },
+    //   backgroundColor: Color.fromRGBO(111, 106, 112, 1),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -30,44 +44,56 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Giffty',
         theme: ThemeData(
-          fontFamily: "Mirage",
-          primarySwatch: palette,
-          backgroundColor: palette.shade900,
+          fontFamily: "Coolvetica",
+          primarySwatch: PaletteColor.palette,
+          backgroundColor: PaletteColor.secondary,
           brightness: Brightness.dark,
-          textTheme: const TextTheme(
-            headline1: TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.w700,
+          textTheme: TextTheme(
+            headline1: const TextStyle(
+              fontSize: 40,
               color: Colors.white,
             ),
             headline2: TextStyle(
+              fontSize: 30,
+              color: Colors.white.withOpacity(0.44),
+            ),
+            headline3: const TextStyle(
               fontSize: 24,
-              fontWeight: FontWeight.w600,
-              color: Colors.white70,
             ),
-            headline3: TextStyle(
+            headline4: const TextStyle(
               fontSize: 28,
-              fontWeight: FontWeight.w600,
-              color: Colors.white,
             ),
-            headline4: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.w700,
-              color: palette,
-            ),
-            headline5: TextStyle(
+            headline5: const TextStyle(
               fontSize: 24,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
             ),
           ),
         ),
-        home: const HomeScreen(),
+        home: HomeScreen(
+            headerFunction: (BuildContext context) =>
+                _openHeaderModal(context)),
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.HOME,
         routes: {
-          AppRoutes.EVENT_DETAILS: (context) => EventDetailsPage(
-              initialPrice: Provider.of<Event>(context, listen: false).price),
+          AppRoutes.EVENT_DETAILS: (context) => EventDetailsScreen(
+              initialPrice: Provider.of<Event>(context, listen: false).price,
+              headerFunction: (BuildContext context) =>
+                  _openHeaderModal(context)),
+          AppRoutes.GUESTS: (context) => GuestsScreen(
+              headerFunction: (BuildContext context) =>
+                  _openHeaderModal(context)),
+          AppRoutes.DARK_PAIRS: (context) => DarkPairsScreen(
+              headerFunction: (BuildContext context) =>
+                  _openHeaderModal(context)),
+          AppRoutes.INSTRUCTIONS: (context) => InstructionsScreen(
+              headerFunction: (BuildContext context) =>
+                  _openHeaderModal(context)),
+          AppRoutes.PAIR_REVEAL: (context) => PairRevealScreen(
+              headerFunction: (BuildContext context) =>
+                  _openHeaderModal(context),
+              pairs: Provider.of<Event>(context, listen: false).pairs),
+          AppRoutes.END: (context) => EndScreen(
+              headerFunction: (BuildContext context) =>
+                  _openHeaderModal(context))
         },
       ),
     );

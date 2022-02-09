@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
-  final String assetIcon;
-  final Function() function;
+  final IconData materialIcon;
+  final void Function() function;
   final bool enabled;
 
   const ButtonWidget({
     Key? key,
     required this.text,
-    required this.assetIcon,
+    required this.materialIcon,
     required this.function,
     required this.enabled,
   }) : super(key: key);
@@ -18,31 +17,44 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: function,
+      onTap: enabled ? function : () {},
       child: Container(
         height: 64,
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 text,
-                style: Theme.of(context).textTheme.headline4,
+                style: enabled
+                    ? Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white)
+                    : Theme.of(context)
+                        .textTheme
+                        .headline4!
+                        .copyWith(color: Colors.white.withOpacity(0.4)),
               ),
-              SvgPicture.asset(
-                assetIcon,
-                height: 28,
-                fit: BoxFit.scaleDown,
-                color: Colors.black,
+              Icon(
+                materialIcon,
+                size: 36,
+                color: enabled ? Colors.white : Colors.white.withOpacity(0.4),
               ),
             ],
           ),
         ),
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration: BoxDecoration(
+          color: enabled
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.primary.withOpacity(0.4),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
       ),
     );
