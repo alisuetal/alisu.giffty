@@ -16,16 +16,24 @@ class DarkPairListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      itemCount: pairs.length,
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.only(top: 16),
-          child: DarkPairWidget(pair: pairs[index], function: function),
-        );
-      },
+    return SingleChildScrollView(
+      child: Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.48 < 320
+              ? 320
+              : MediaQuery.of(context).size.height * 0.48,
+        ),
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: pairs.length,
+          itemBuilder: (context, index) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: DarkPairWidget(pair: pairs[index], function: function),
+            );
+          },
+        ),
+      ),
     );
   }
 }

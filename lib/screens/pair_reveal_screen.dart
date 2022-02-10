@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:giffty_flutter/components/header_widget.dart';
 import 'package:giffty_flutter/components/reveal_button_widget.dart';
+import 'package:giffty_flutter/components/screen_holder_widget.dart';
 import 'package:giffty_flutter/models/pair.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
 import 'package:giffty_flutter/utils/palette.dart';
@@ -21,6 +22,7 @@ class PairRevealScreen extends StatefulWidget {
 class _PairRevealScreenState extends State<PairRevealScreen> {
   late Pair currentPair;
   late int index = 0;
+  late String title = "";
   void _nextScreen(BuildContext context) {
     Navigator.of(context).pushNamed(AppRoutes.END);
   }
@@ -28,6 +30,7 @@ class _PairRevealScreenState extends State<PairRevealScreen> {
   @override
   void initState() {
     currentPair = widget.pairs[0];
+    _setTitle(currentPair.pair[0].name, null);
     super.initState();
   }
 
@@ -37,6 +40,7 @@ class _PairRevealScreenState extends State<PairRevealScreen> {
         function();
         index++;
         currentPair = widget.pairs[index];
+        _setTitle(currentPair.pair[0].name, null);
       });
     }
   }
@@ -49,47 +53,55 @@ class _PairRevealScreenState extends State<PairRevealScreen> {
     }
   }
 
+  void _setTitle(String gOne, String? gTwo) {
+    if (gTwo != null) {
+      setState(() {
+        title = gOne + " got " + gTwo + "!";
+      });
+    } else {
+      setState(() {
+        title = gOne + " got...";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: PaletteColor.secondary,
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 640,
-          ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 40,
-                left: 20,
-                right: 20,
-                bottom: 20,
+    return ScreenHolderWidget(
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HeaderWidget(
+                goBack: true,
+                headerFunction: widget.headerFunction,
               ),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    HeaderWidget(
-                        goBack: false, headerFunction: widget.headerFunction),
-                    Flexible(
-                      child: RevealButtonWidget(
-                        pair: currentPair,
-                        resetFunction: (void Function() function) =>
-                            _nextPair(function),
-                        shouldNextPair: _shouldNextPair,
-                        buttonFunction: (BuildContext context) =>
-                            _nextScreen(context),
-                      ),
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: Text(
+                  title, //widget.pair.pair[0].name + " got...",
+                  style: Theme.of(context).textTheme.headline1,
+                  textAlign: TextAlign.justify,
                 ),
               ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 16,
+            ),
+            child: RevealButtonWidget(
+              pair: currentPair,
+              setTitle: (String gOne, String? gTwo) => _setTitle(gOne, gTwo),
+              resetFunction: (void Function() function) => _nextPair(function),
+              shouldNextPair: _shouldNextPair,
+              buttonFunction: (BuildContext context) => _nextScreen(context),
             ),
           ),
-        ),
+        ],
       ),
     );
   }

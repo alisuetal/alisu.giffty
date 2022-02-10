@@ -6,6 +6,7 @@ import 'package:giffty_flutter/components/guest_list_widget.dart';
 import 'package:giffty_flutter/components/guest_form_widget.dart';
 import 'package:giffty_flutter/components/header_widget.dart';
 import 'package:giffty_flutter/components/modal_widget.dart';
+import 'package:giffty_flutter/components/screen_holder_widget.dart';
 import 'package:giffty_flutter/components/steps_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/models/guest.dart';
@@ -45,77 +46,63 @@ class _GuestsScreenState extends State<GuestsScreen> {
   Widget build(BuildContext context) {
     final event = Provider.of<Event>(context);
     final guestList = event.guests;
-    return Scaffold(
-      backgroundColor: PaletteColor.secondary,
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 640,
-          ),
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(
-                top: 40,
-                left: 20,
-                right: 20,
-                bottom: 20,
+    return ScreenHolderWidget(
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              HeaderWidget(
+                goBack: true,
+                headerFunction: widget.headerFunction,
               ),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        HeaderWidget(
-                          goBack: true,
-                          headerFunction: widget.headerFunction,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 16),
-                          child: StepsWidget(step: 2),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Text(
-                            "Set the guests.",
-                            style: Theme.of(context).textTheme.headline1,
-                            textAlign: TextAlign.justify,
-                          ),
-                        ),
-                        GuestListWidget(
-                            guests: guestList,
-                            function: (BuildContext context, Guest guest) =>
-                                _openGuestModal(context, guest)),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: AddItemWidget(
-                            text: "Add guest",
-                            function: () => _openGuestModal(context, null),
-                          ),
-                        ),
-                      ],
-                    ),
-                    if (guestList.isEmpty)
-                      SvgPicture.asset(
-                        "assets/imgs/illustrations/guestIllustration.svg",
-                        height: 128,
-                        fit: BoxFit.fitWidth,
-                        // color: Colors.white60,
-                      ),
-                    ButtonWidget(
-                      text: "Next",
-                      materialIcon: Icons.arrow_forward_rounded,
-                      function: () => _nextScreen(context),
-                      enabled: event.guestCount >= 3,
-                    )
-                  ],
+              const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: StepsWidget(step: 2),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: Text(
+                  "Set the guests.",
+                  style: Theme.of(context).textTheme.headline1,
+                  textAlign: TextAlign.justify,
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: GuestListWidget(
+                  guests: guestList,
+                  function: (BuildContext context, Guest guest) =>
+                      _openGuestModal(context, guest),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16),
+                child: AddItemWidget(
+                  text: "Add guest",
+                  function: () => _openGuestModal(context, null),
+                ),
+              ),
+            ],
           ),
-        ),
+          if (guestList.isEmpty)
+            SvgPicture.asset(
+              "assets/imgs/illustrations/guestIllustration.svg",
+              height: 128,
+              fit: BoxFit.fitWidth,
+              // color: Colors.white60,
+            ),
+          Padding(
+            padding: const EdgeInsets.only(top: 24),
+            child: ButtonWidget(
+              text: "Next",
+              materialIcon: Icons.arrow_forward_rounded,
+              function: () => _nextScreen(context),
+              enabled: event.guestCount >= 3,
+            ),
+          )
+        ],
       ),
     );
   }

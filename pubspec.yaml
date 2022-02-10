@@ -38,6 +38,7 @@ dependencies:
   easy_mask: ^2.0.1
   provider: ^6.0.2
   intl: ^0.17.0
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:giffty_flutter/components/button_widget.dart';
 import 'package:giffty_flutter/components/header_widget.dart';
+import 'package:giffty_flutter/components/screen_holder_widget.dart';
 import 'package:giffty_flutter/components/steps_widget.dart';
 import 'package:giffty_flutter/components/text_field_currency_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
@@ -39,99 +40,77 @@ class _EventDetailsScreenState extends State<EventDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final event = Provider.of<Event>(context, listen: false);
-    return Scaffold(
-      backgroundColor: PaletteColor.secondary,
-      body: Center(
-        child: Container(
-          constraints: const BoxConstraints(
-            maxWidth: 640,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(
-              top: 40,
-              left: 20,
-              right: 20,
-              bottom: 20,
-            ),
-            child: SingleChildScrollView(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.9,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return ScreenHolderWidget(
+      content: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            children: [
+              HeaderWidget(
+                goBack: true,
+                headerFunction: widget.headerFunction,
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 24),
+                child: StepsWidget(step: 1),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      children: [
-                        HeaderWidget(
-                          goBack: true,
-                          headerFunction: widget.headerFunction,
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 24),
-                          child: StepsWidget(step: 1),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  "Let’s set the budget first.",
-                                  style: Theme.of(context).textTheme.headline1,
-                                  textAlign: TextAlign.justify,
-                                  softWrap: true,
-                                  overflow: TextOverflow.clip,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                    Flexible(
+                      child: Text(
+                        "Let’s set the budget first.",
+                        style: Theme.of(context).textTheme.headline1,
+                        textAlign: TextAlign.justify,
+                        softWrap: true,
+                        overflow: TextOverflow.clip,
+                      ),
                     ),
-                    SvgPicture.asset(
-                      "assets/imgs/illustrations/moneyIllustration.svg",
-                      height: 128,
-                      fit: BoxFit.fitWidth,
-                      // color: Colors.white60,
-                    ),
-                    Column(
-                      children: [
-                        TextFieldWidget(
-                          anchor: (String price) {
-                            setState(() {
-                              this.price = price;
-                            });
-                          },
-                          hint: "Price (optional)",
-                          text: widget.initialPrice > 0
-                              ? Tools().formatPrice(widget.initialPrice)
-                              : null,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        ButtonWidget(
-                          text: (price.isNotEmpty &&
-                                  Tools().deformatPrice(price) > 0)
-                              ? "Next"
-                              : "Skip",
-                          materialIcon: Icons.arrow_forward_rounded,
-                          function: () {
-                            _nextScreen(context);
-                            if (price.isNotEmpty) {
-                              event.setPrice(Tools().deformatPrice(price));
-                            }
-                          },
-                          enabled: true,
-                        ),
-                      ],
-                    )
                   ],
                 ),
               ),
-            ),
+            ],
           ),
-        ),
+          SvgPicture.asset(
+            "assets/imgs/illustrations/moneyIllustration.svg",
+            height: 128,
+            fit: BoxFit.fitWidth,
+            // color: Colors.white60,
+          ),
+          Column(
+            children: [
+              TextFieldWidget(
+                anchor: (String price) {
+                  setState(() {
+                    this.price = price;
+                  });
+                },
+                hint: "Price (optional)",
+                text: widget.initialPrice > 0
+                    ? Tools().formatPrice(widget.initialPrice)
+                    : null,
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              ButtonWidget(
+                text: (price.isNotEmpty && Tools().deformatPrice(price) > 0)
+                    ? "Next"
+                    : "Skip",
+                materialIcon: Icons.arrow_forward_rounded,
+                function: () {
+                  _nextScreen(context);
+                  if (price.isNotEmpty) {
+                    event.setPrice(Tools().deformatPrice(price));
+                  }
+                },
+                enabled: true,
+              ),
+            ],
+          )
+        ],
       ),
     );
   }

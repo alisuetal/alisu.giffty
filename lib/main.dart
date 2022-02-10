@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:giffty_flutter/components/dropdown_widget.dart';
+import 'package:giffty_flutter/components/modal_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/screens/dark_pairs_screen.dart';
 import 'package:giffty_flutter/screens/end_screen.dart';
@@ -11,6 +15,7 @@ import 'package:giffty_flutter/screens/pair_reveal_screen.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(
@@ -31,7 +36,14 @@ class MyApp extends StatelessWidget {
     // showModalBottomSheet(
     //   context: context,
     //   builder: (_) {
-    //     return Container();
+    //     return ModalWidget(
+    //         content: DropDownWidget(
+    //       items: http
+    //           .get(Uri.parse(
+    //               'https://openexchangerates.org/api/currencies.json'))
+    //           .then((value) =>
+    //               print((json.decode(value.body) as Map).keys.toList())),
+    //     ));
     //   },
     //   backgroundColor: Color.fromRGBO(111, 106, 112, 1),
     // );
@@ -69,8 +81,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: HomeScreen(
-            headerFunction: (BuildContext context) =>
-                _openHeaderModal(context)),
+          headerFunction: (BuildContext context) => _openHeaderModal(context),
+        ),
         debugShowCheckedModeBanner: false,
         initialRoute: AppRoutes.HOME,
         routes: {
