@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:giffty_flutter/components/button_widget.dart';
 import 'package:giffty_flutter/components/fake_textfield_widget.dart';
@@ -113,17 +114,17 @@ class _RevealButtonWidgetState extends State<RevealButtonWidget> {
             if (visible)
               AnimatedOpacity(
                 opacity: opacity,
-                duration: Duration(seconds: 1),
+                duration: const Duration(seconds: 1),
                 child: GestureDetector(
-                  onTapDown: (TapDownDetails) {
+                  onTapDown: (TapDownDetails tap) {
                     setState(() {
                       height = 500;
                     });
                   },
-                  onLongPressDown: (TapDownDetails) {
+                  onLongPressDown: (LongPressDownDetails tap) {
                     setState(() {
-                      Future.delayed(
-                          Duration(milliseconds: 1400), () => _revealPair());
+                      Future.delayed(const Duration(milliseconds: 1400),
+                          () => _revealPair());
                     });
                   },
                   onLongPressUp: () {
@@ -131,7 +132,7 @@ class _RevealButtonWidgetState extends State<RevealButtonWidget> {
                       height = 0;
                     });
                   },
-                  onTapUp: (TapUpDetails) {
+                  onTapUp: (TapUpDetails tap) {
                     setState(() {
                       height = 0;
                     });

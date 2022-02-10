@@ -7,7 +7,6 @@ import 'package:giffty_flutter/components/steps_widget.dart';
 import 'package:giffty_flutter/components/text_field_currency_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
-import 'package:giffty_flutter/utils/palette.dart';
 import 'package:giffty_flutter/utils/tools.dart';
 import 'package:provider/provider.dart';
 

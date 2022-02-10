@@ -13,25 +13,23 @@ class ModalWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       constraints: const BoxConstraints(
-        minWidth: double.infinity,
+        maxWidth: 640,
       ),
       child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 20,
-            right: 20,
-            bottom: 20,
-          ),
-          child: Column(
-            children: [
-              Icon(
-                Icons.remove_rounded,
-                size: 56,
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              content,
-            ],
-          ),
+        padding: const EdgeInsets.only(
+          left: 20,
+          right: 20,
+          bottom: 20,
+        ),
+        child: Column(
+          children: [
+            Icon(
+              Icons.remove_rounded,
+              size: 56,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            content,
+          ],
         ),
       ),
       decoration: const BoxDecoration(

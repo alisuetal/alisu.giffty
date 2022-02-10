@@ -5,7 +5,6 @@ import 'package:giffty_flutter/components/instruction_widget.dart';
 import 'package:giffty_flutter/components/screen_holder_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
-import 'package:giffty_flutter/utils/palette.dart';
 import 'package:provider/provider.dart';
 
 class InstructionsScreen extends StatelessWidget {

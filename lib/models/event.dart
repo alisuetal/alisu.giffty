@@ -10,9 +10,9 @@ class Event with ChangeNotifier {
   //   Guest(id: "2", approxPrice: 12.48, desiredGift: "b", name: "b"),
   //   Guest(id: "3", approxPrice: 12.48, desiredGift: "c", name: "c")
   // ];
-  List<Guest> _guests = [];
-  List<DarkPair> _darkPairs = [];
-  List<Pair> _pairs = [];
+  final List<Guest> _guests = [];
+  final List<DarkPair> _darkPairs = [];
+  final List<Pair> _pairs = [];
 
   int get guestCount {
     return _guests.length;

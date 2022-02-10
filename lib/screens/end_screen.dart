@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:giffty_flutter/components/button_widget.dart';
 import 'package:giffty_flutter/components/header_widget.dart';
 import 'package:giffty_flutter/components/screen_holder_widget.dart';
-import 'package:giffty_flutter/utils/palette.dart';
 
 class EndScreen extends StatelessWidget {
   final String giftIllustration =

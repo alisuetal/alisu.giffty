@@ -4,7 +4,6 @@ import 'package:giffty_flutter/components/reveal_button_widget.dart';
 import 'package:giffty_flutter/components/screen_holder_widget.dart';
 import 'package:giffty_flutter/models/pair.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
-import 'package:giffty_flutter/utils/palette.dart';
 
 class PairRevealScreen extends StatefulWidget {
   final void Function(BuildContext) headerFunction;

@@ -11,7 +11,6 @@ import 'package:giffty_flutter/components/steps_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/models/guest.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
-import 'package:giffty_flutter/utils/palette.dart';
 import 'package:provider/provider.dart';
 
 class GuestsScreen extends StatefulWidget {
