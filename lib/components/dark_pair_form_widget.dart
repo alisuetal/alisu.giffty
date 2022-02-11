@@ -20,37 +20,45 @@ class DarkPairFormWidget extends StatefulWidget {
 }
 
 class _DarkPairFormWidgetState extends State<DarkPairFormWidget> {
-  List<Guest> dropOne = [];
-  List<Guest> dropTwo = [];
-  String selectedOne = "";
-  String selectedTwo = "";
+  List<List> dropOne = [];
+  List<List> dropTwo = [];
+  int selectedOne = 0;
+  int selectedTwo = 0;
 
   @override
   void initState() {
-    dropOne = [...widget.guests];
-    dropTwo = [...widget.guests];
+    dropOne = _initDropDown();
+    dropTwo = _initDropDown();
     dropTwo.removeAt(0);
-    selectedOne = dropOne[0].id;
-    selectedTwo = dropTwo[0].id;
+    selectedOne = dropOne[0][0];
+    selectedTwo = dropTwo[0][0];
     super.initState();
   }
 
-  void _getFirstDropDown(String value) {
+  List<List> _initDropDown() {
+    return [
+      ...widget.guests.map((e) => [int.tryParse(e.id), e.name])
+    ];
+  }
+
+  void _getFirstDropDown(int value) {
     setState(() {
       selectedOne = value;
-      dropTwo.removeWhere((element) => element.id == value);
+      dropTwo = _initDropDown();
+      dropTwo.removeWhere((element) => element[0] == value);
       if (selectedTwo == value) {
-        selectedTwo = dropTwo[0].id;
+        selectedTwo = dropTwo[0][0];
       }
     });
   }
 
-  void _getSecondDropDown(String value) {
+  void _getSecondDropDown(int value) {
     setState(() {
       selectedTwo = value;
-      dropOne.removeWhere((element) => element.id == value);
+      dropOne = _initDropDown();
+      dropOne.removeWhere((element) => element[0] == value);
       if (selectedOne == value) {
-        selectedOne = dropOne[0].id;
+        selectedOne = dropOne[0][0];
       }
     });
   }
@@ -64,13 +72,21 @@ class _DarkPairFormWidgetState extends State<DarkPairFormWidget> {
       if (darkPair != null) {
         event.updateDarkPair(
           darkPair.id,
-          dropOne.where((element) => element.id == selectedOne).first,
-          dropTwo.where((element) => element.id == selectedTwo).first,
+          widget.guests
+              .where((element) => element.id == selectedOne.toString())
+              .first,
+          widget.guests
+              .where((element) => element.id == selectedTwo.toString())
+              .first,
         );
       } else {
         event.addDarkPair(
-          dropOne.where((element) => element.id == selectedOne).first,
-          dropTwo.where((element) => element.id == selectedTwo).first,
+          widget.guests
+              .where((element) => element.id == selectedOne.toString())
+              .first,
+          widget.guests
+              .where((element) => element.id == selectedTwo.toString())
+              .first,
         );
       }
       Navigator.of(context).pop();
@@ -86,21 +102,21 @@ class _DarkPairFormWidgetState extends State<DarkPairFormWidget> {
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: DropDownWidget(
-            anchor: (String value) {
+            anchor: (int value) {
               _getFirstDropDown(value);
             },
             value: selectedOne,
-            guests: event.guests,
+            items: dropOne,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
           child: DropDownWidget(
-            anchor: (String value) {
+            anchor: (int value) {
               _getSecondDropDown(value);
             },
             value: selectedTwo,
-            guests: event.guests,
+            items: dropTwo,
           ),
         ),
         Padding(

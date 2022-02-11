@@ -3,14 +3,14 @@ import 'package:giffty_flutter/models/guest.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 
 class DropDownWidget extends StatefulWidget {
-  final List<Guest> guests;
-  final String value;
-  final void Function(String value) anchor;
+  final List<List> items;
+  final int value;
+  final void Function(int value) anchor;
 
   const DropDownWidget({
     Key? key,
     required this.value,
-    required this.guests,
+    required this.items,
     required this.anchor,
   }) : super(key: key);
 
@@ -35,7 +35,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             color: Colors.white.withOpacity(0.08),
           ),
           child: Center(
-            child: DropdownButton<String>(
+            child: DropdownButton<int>(
               value: widget.value,
               focusColor: Colors.white.withOpacity(0),
               icon: const Padding(
@@ -49,19 +49,19 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               style: Theme.of(context).textTheme.headline3,
               borderRadius: const BorderRadius.all(Radius.circular(8)),
               underline: Container(),
-              onChanged: (String? newValue) {
+              onChanged: (int? newValue) {
                 widget.anchor(newValue!);
               },
-              items: [...widget.guests].toList().map<DropdownMenuItem<String>>(
-                (Guest guest) {
-                  return DropdownMenuItem<String>(
-                    value: guest.id,
+              items: [...widget.items].toList().map<DropdownMenuItem<int>>(
+                (List item) {
+                  return DropdownMenuItem<int>(
+                    value: item[0],
                     child: Padding(
                       padding: const EdgeInsets.only(
                         left: 16,
                         right: 16,
                       ),
-                      child: Text(guest.name),
+                      child: Text(item[1]),
                     ),
                   );
                 },
