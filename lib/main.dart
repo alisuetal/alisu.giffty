@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:giffty_flutter/components/bottom_modal_widget.dart';
 import 'package:giffty_flutter/components/dropdown_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/screens/dark_pairs_screen.dart';
@@ -33,28 +34,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  Future<List<List>> _getCurrencies() async {
-    List a = await http
-        .get(Uri.parse('https://openexchangerates.org/api/currencies.json'))
-        .then((value) => (json.decode(value.body) as Map).keys.toList());
-    List<List> b = [];
-    for (int x = 0; x < a.length; x++) {
-      b.add([x, a[x]]);
-    }
-    return b;
-  }
-
   void _openHeaderModal(BuildContext context) async {
-    List<List> items = await _getCurrencies();
     showModalBottomSheet(
       context: context,
       builder: (_) {
         return ModalWidget(
-            content: DropDownWidget(
-          anchor: (int) {},
-          value: items[0][0],
-          items: items,
-        ));
+          content: BottomModalWidget(),
+        );
       },
       backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
       constraints: const BoxConstraints(
@@ -90,7 +76,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28,
             ),
             headline5: const TextStyle(
-              fontSize: 24,
+              fontSize: 16,
             ),
           ),
         ),

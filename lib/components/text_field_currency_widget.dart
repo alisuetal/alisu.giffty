@@ -1,5 +1,7 @@
 import 'package:easy_mask/easy_mask.dart';
 import 'package:flutter/material.dart';
+import 'package:giffty_flutter/models/event.dart';
+import 'package:provider/provider.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final String? text;
@@ -31,6 +33,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final event = Provider.of<Event>(context, listen: true);
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(8)),
       child: SizedBox(
@@ -64,15 +67,15 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 prefixIcon: Padding(
                   padding: const EdgeInsets.only(left: 16, top: 4),
                   child: Text(
-                    "\$",
-                    style: Theme.of(context).textTheme.headline5,
+                    event.currency + " ",
+                    style: Theme.of(context).textTheme.headline3,
                   ),
                 ),
                 hintText: widget.hint,
               ),
               style: Theme.of(context)
                   .textTheme
-                  .headline5!
+                  .headline3!
                   .copyWith(color: Colors.white),
               cursorColor: Colors.white,
             ),

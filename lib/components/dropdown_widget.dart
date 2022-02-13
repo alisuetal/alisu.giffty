@@ -26,50 +26,53 @@ class _DropDownWidgetState extends State<DropDownWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.all(Radius.circular(8)),
-      child: SizedBox(
-        height: 64,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.08),
-          ),
-          child: Center(
-            child: DropdownButton<int>(
-              value: widget.value,
-              focusColor: Colors.white.withOpacity(0),
-              icon: const Padding(
-                padding: EdgeInsets.only(
-                  right: 8,
+    return widget.items[0].isNotEmpty
+        ? ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            child: SizedBox(
+              height: 64,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.08),
                 ),
-                child: Icon(Icons.keyboard_arrow_down_rounded),
-              ),
-              dropdownColor: PaletteColor.secondary,
-              isExpanded: true,
-              style: Theme.of(context).textTheme.headline3,
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              underline: Container(),
-              onChanged: (int? newValue) {
-                widget.anchor(newValue!);
-              },
-              items: [...widget.items].toList().map<DropdownMenuItem<int>>(
-                (List item) {
-                  return DropdownMenuItem<int>(
-                    value: item[0],
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
+                child: Center(
+                  child: DropdownButton<int>(
+                    value: widget.value,
+                    focusColor: Colors.white.withOpacity(0),
+                    icon: const Padding(
+                      padding: EdgeInsets.only(
+                        right: 8,
                       ),
-                      child: Text(item[1]),
+                      child: Icon(Icons.keyboard_arrow_down_rounded),
                     ),
-                  );
-                },
-              ).toList(),
+                    dropdownColor: PaletteColor.secondary,
+                    isExpanded: true,
+                    style: Theme.of(context).textTheme.headline3,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    underline: Container(),
+                    onChanged: (int? newValue) {
+                      widget.anchor(newValue!);
+                    },
+                    items:
+                        [...widget.items].toList().map<DropdownMenuItem<int>>(
+                      (List item) {
+                        return DropdownMenuItem<int>(
+                          value: item[0],
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                            ),
+                            child: Text(item[1]),
+                          ),
+                        );
+                      },
+                    ).toList(),
+                  ),
+                ),
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        : Container();
   }
 }

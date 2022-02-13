@@ -43,12 +43,13 @@ Even though the project is 100% free, you can always help me by sending a change
 The project will be under beta development while the taks below are not completed. And while some known bugs are fixed.
 
 
-- [COMPONENTS]
+- [MODELS]
 - - [ ] DarkPair validation;
+- - [ ] Random pair assignment;
 - [OTHERS]
-- - [ ] Currency picker;
+- - [X] Currency picker;
 - - [ ] Language changer;
-- - [ ] Global options modal;
+- - [X] Global options modal;
 
 ## 💻 Requirements
 

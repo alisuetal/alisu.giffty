@@ -13,9 +13,14 @@ class Event with ChangeNotifier {
   final List<Guest> _guests = [];
   final List<DarkPair> _darkPairs = [];
   final List<Pair> _pairs = [];
+  String _currency = "USD";
 
   int get guestCount {
     return _guests.length;
+  }
+
+  String get currency {
+    return _currency.toString();
   }
 
   double get price {
@@ -36,6 +41,11 @@ class Event with ChangeNotifier {
 
   void setPrice(double price) {
     _price = price;
+  }
+
+  void setCurrency(String value) {
+    _currency = value;
+    notifyListeners();
   }
 
   Guest _createGuest(String? id, String name, String gift, double price) {
