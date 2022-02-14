@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:giffty_flutter/models/guest.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 
 class DropDownWidget extends StatefulWidget {

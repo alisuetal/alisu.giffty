@@ -16,12 +16,6 @@ class _BottomModalWidgetState extends State<BottomModalWidget> {
   late List<List> currencyList;
   int selectedCurrency = 0;
 
-  void _initCurrency() {
-    setState(() async {
-      currencyList = await _getCurrencies();
-    });
-  }
-
   Future<List<List>> _getCurrencies() async {
     List apiData = await http
         .get(Uri.parse('https://openexchangerates.org/api/currencies.json'))

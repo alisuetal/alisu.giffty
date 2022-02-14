@@ -7,14 +7,7 @@ import 'package:giffty_flutter/models/pair.dart';
 
 class Event with ChangeNotifier {
   double? _price;
-  List<Guest> _guests = [
-    Guest(id: "1", approxPrice: 12.48, desiredGift: "a", name: "a"),
-    Guest(id: "2", approxPrice: 12.48, desiredGift: "b", name: "b"),
-    Guest(id: "3", approxPrice: 12.48, desiredGift: "c", name: "c"),
-    Guest(id: "4", approxPrice: 12.48, desiredGift: "d", name: "d"),
-    Guest(id: "5", approxPrice: 12.48, desiredGift: "e", name: "e"),
-  ];
-  // final List<Guest> _guests = [];
+  final List<Guest> _guests = [];
   final List<DarkPair> _darkPairs = [];
   final List<Pair> _pairs = [];
   String _currency = "USD";
@@ -113,7 +106,6 @@ class Event with ChangeNotifier {
   }
 
   Pair createPair(Guest gOne, Guest gTwo) {
-    print("dep " + _pairs.length.toString() + " qt");
     return Pair(id: _pairs.length.toString(), pair: [gOne, gTwo]);
   }
 
@@ -122,7 +114,6 @@ class Event with ChangeNotifier {
       _pairs.clear();
     }
     while (_pairs.length < _guests.length) {
-      print("começo");
       if (_pairs.isNotEmpty) {
         _pairs.clear();
       }
@@ -131,7 +122,6 @@ class Event with ChangeNotifier {
         if (gTwo == null) {
           break;
         } else {
-          print("dep " + gOne.id + " ");
           Pair pair = createPair(gOne, gTwo);
           _pairs.add(pair);
         }

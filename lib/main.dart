@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:giffty_flutter/components/bottom_modal_widget.dart';
-import 'package:giffty_flutter/components/dropdown_widget.dart';
 import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/screens/dark_pairs_screen.dart';
 import 'package:giffty_flutter/screens/end_screen.dart';
@@ -15,8 +12,6 @@ import 'package:giffty_flutter/screens/pair_reveal_screen.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
-
 import 'components/modal_widget.dart';
 
 void main() {
