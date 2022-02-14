@@ -2,9 +2,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:giffty_flutter/components/button_widget.dart';
 import 'package:giffty_flutter/components/fake_textfield_widget.dart';
+import 'package:giffty_flutter/models/event.dart';
 import 'package:giffty_flutter/models/pair.dart';
 import 'package:giffty_flutter/utils/palette.dart';
 import 'package:giffty_flutter/utils/tools.dart';
+import 'package:provider/provider.dart';
 
 class RevealButtonWidget extends StatefulWidget {
   final Pair pair;
@@ -59,6 +61,7 @@ class _RevealButtonWidgetState extends State<RevealButtonWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final event = Provider.of<Event>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.end,
@@ -93,8 +96,10 @@ class _RevealButtonWidgetState extends State<RevealButtonWidget> {
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0),
                       child: FakeTextfieldWidget(
-                          text: Tools()
-                              .formatPrice(widget.pair.pair[1].approxPrice)),
+                          text: event.currency +
+                              " " +
+                              Tools().formatPrice(
+                                  widget.pair.pair[1].approxPrice)),
                     ),
                     const SizedBox(
                       height: 32,

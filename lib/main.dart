@@ -38,13 +38,13 @@ class MyApp extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return ModalWidget(
+        return const ModalWidget(
           content: BottomModalWidget(),
         );
       },
       backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
       constraints: const BoxConstraints(
-        maxHeight: 600.0,
+        maxHeight: 580.0,
       ),
     );
   }
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
               fontSize: 28,
             ),
             headline5: const TextStyle(
-              fontSize: 16,
+              fontSize: 18,
             ),
           ),
         ),

@@ -59,17 +59,22 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
                 fillColor: Colors.white.withOpacity(0.08),
                 counterText: "",
                 contentPadding: const EdgeInsets.only(
-                  top: 24,
+                  // top: 24,
                   left: 24,
-                  bottom: 16,
+                  // bottom: 20,
                   right: 64,
                 ),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(left: 16, top: 4),
-                  child: Text(
-                    event.currency + " ",
-                    style: Theme.of(context).textTheme.headline3,
-                  ),
+                prefixIcon: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text(
+                        event.currency + " ",
+                        style: Theme.of(context).textTheme.headline3,
+                      ),
+                    ),
+                  ],
                 ),
                 hintText: widget.hint,
               ),

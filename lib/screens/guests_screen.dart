@@ -36,7 +36,7 @@ class _GuestsScreenState extends State<GuestsScreen> {
       },
       backgroundColor: const Color.fromRGBO(0, 0, 0, 0),
       constraints: const BoxConstraints(
-        maxHeight: 600.0,
+        minHeight: 540.0,
       ),
     );
   }
@@ -68,14 +68,15 @@ class _GuestsScreenState extends State<GuestsScreen> {
                   textAlign: TextAlign.justify,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: GuestListWidget(
-                  guests: guestList,
-                  function: (BuildContext context, Guest guest) =>
-                      _openGuestModal(context, guest),
+              if (event.guests.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: GuestListWidget(
+                    guests: guestList,
+                    function: (BuildContext context, Guest guest) =>
+                        _openGuestModal(context, guest),
+                  ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: AddItemWidget(

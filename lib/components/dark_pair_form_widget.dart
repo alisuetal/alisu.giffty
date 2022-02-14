@@ -64,7 +64,13 @@ class _DarkPairFormWidgetState extends State<DarkPairFormWidget> {
   }
 
   bool _enabledButton(Event event) {
-    return true;
+    return event.verifyDarkPair(
+        event.guests
+            .where((element) => element.id == selectedOne.toString())
+            .first,
+        event.guests
+            .where((element) => element.id == selectedTwo.toString())
+            .first);
   }
 
   void _submit(BuildContext context, Event event, DarkPair? darkPair) {

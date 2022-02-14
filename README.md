@@ -44,8 +44,8 @@ The project will be under beta development while the taks below are not complete
 
 
 - [MODELS]
-- - [ ] DarkPair validation;
-- - [ ] Random pair assignment;
+- - [X] DarkPair validation;
+- - [X] Random pair assignment;
 - [OTHERS]
 - - [X] Currency picker;
 - - [ ] Language changer;

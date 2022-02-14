@@ -20,6 +20,9 @@ class InstructionsScreen extends StatelessWidget {
     }
 
     final event = Provider.of<Event>(context, listen: false);
+    event.setPairs();
+    print(
+        event.pairs.map((e) => e.id + " " + e.pair[0].id + " " + e.pair[1].id));
     return ScreenHolderWidget(
       content: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -58,7 +58,7 @@ class _BottomModalWidgetState extends State<BottomModalWidget> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                bottom: 4,
+                bottom: 8,
               ),
               child: Text(
                 "Select currency",

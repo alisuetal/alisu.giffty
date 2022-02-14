@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:giffty_flutter/models/dark_pair.dart';
 import 'package:giffty_flutter/models/guest.dart';
@@ -5,12 +7,14 @@ import 'package:giffty_flutter/models/pair.dart';
 
 class Event with ChangeNotifier {
   double? _price;
-  // List<Guest> _guests = [
-  //   Guest(id: "1", approxPrice: 12.48, desiredGift: "a", name: "a"),
-  //   Guest(id: "2", approxPrice: 12.48, desiredGift: "b", name: "b"),
-  //   Guest(id: "3", approxPrice: 12.48, desiredGift: "c", name: "c")
-  // ];
-  final List<Guest> _guests = [];
+  List<Guest> _guests = [
+    Guest(id: "1", approxPrice: 12.48, desiredGift: "a", name: "a"),
+    Guest(id: "2", approxPrice: 12.48, desiredGift: "b", name: "b"),
+    Guest(id: "3", approxPrice: 12.48, desiredGift: "c", name: "c"),
+    Guest(id: "4", approxPrice: 12.48, desiredGift: "d", name: "d"),
+    Guest(id: "5", approxPrice: 12.48, desiredGift: "e", name: "e"),
+  ];
+  // final List<Guest> _guests = [];
   final List<DarkPair> _darkPairs = [];
   final List<Pair> _pairs = [];
   String _currency = "USD";
@@ -68,10 +72,36 @@ class Event with ChangeNotifier {
 
   bool isPair(Guest gOne, Guest gTwo) {
     return _pairs
-        .where((element) => ((element.pair[0].id == gOne.id ||
-                element.pair[0].id == gTwo.id) &&
-            (element.pair[1].id == gOne.id || element.pair[1].id == gTwo.id)))
+        .where((element) => ((element.pair[0].id == gOne.id &&
+                element.pair[1].id == gTwo.id) ||
+            (element.pair[0].id == gTwo.id && element.pair[1].id == gOne.id)))
         .isNotEmpty;
+  }
+
+  bool isTaken(Guest guest) {
+    return _pairs
+        .where((element) => (element.pair[1].id == guest.id))
+        .isNotEmpty;
+  }
+
+  bool pairValidation(Guest gOne, Guest gTwo) {
+    if (isPair(gOne, gTwo)) {
+      return false;
+    } else {
+      if (isTaken(gTwo)) {
+        return false;
+      } else {
+        if (gOne.id == gTwo.id) {
+          return false;
+        } else {
+          if (isDarkPair(gOne, gTwo)) {
+            return false;
+          } else {
+            return true;
+          }
+        }
+      }
+    }
   }
 
   bool isDarkPair(Guest gOne, Guest gTwo) {
@@ -83,28 +113,99 @@ class Event with ChangeNotifier {
   }
 
   Pair createPair(Guest gOne, Guest gTwo) {
+    print("dep " + _pairs.length.toString() + " qt");
     return Pair(id: _pairs.length.toString(), pair: [gOne, gTwo]);
   }
 
   void setPairs() {
-    for (var gOne in _guests) {
-      _pairs.add(createPair(
-          gOne, _guests.where((element) => element.id != gOne.id).first));
+    if (_pairs.isNotEmpty) {
+      _pairs.clear();
+    }
+    while (_pairs.length < _guests.length) {
+      print("começo");
+      if (_pairs.isNotEmpty) {
+        _pairs.clear();
+      }
+      for (var gOne in _guests) {
+        Guest? gTwo = getRandomPair(gOne);
+        if (gTwo == null) {
+          break;
+        } else {
+          print("dep " + gOne.id + " ");
+          Pair pair = createPair(gOne, gTwo);
+          _pairs.add(pair);
+        }
+      }
     }
   }
 
-  // List<Guest> getRandomPair(Guest gOne) {
-  //   List<Guest> triedGuests = [];
-  //   while (triedGuests.length != (_guests.length - 1)) {
-  //     Guest guestTwo = _guests[Random().nextInt(_guests.length)];
-  //     if (!isPair(gOne, guestTwo)) {
-  //       return [gOne, guestTwo];
-  //     } else if (!triedGuests.contains(guestTwo)) {
-  //       triedGuests.add(guestTwo);
-  //     }
-  //   }
-  //   return [];
-  // }
+  Guest? getRandomPair(Guest gOne) {
+    List<Guest> triedGuests = [];
+    while (triedGuests.length <= (_guests.length - 1)) {
+      Guest guestTwo = _guests[Random().nextInt(_guests.length)];
+      if (pairValidation(gOne, guestTwo)) {
+        return guestTwo;
+      } else if (!triedGuests.contains(guestTwo)) {
+        triedGuests.add(guestTwo);
+      }
+    }
+    return null;
+  }
+
+  void setDarkPair(Guest gOne, Guest gTwo) {
+    if (verifyDarkPair(gOne, gTwo)) {
+      _darkPairs.add(createDarkPair(gOne, gTwo));
+    }
+  }
+
+  DarkPair createDarkPair(Guest gOne, Guest gTwo) {
+    return DarkPair(
+      id: darkPairs.isEmpty
+          ? "0"
+          : (int.parse(darkPairs.last.id) + 1).toString(),
+      pair: [gOne, gTwo],
+    );
+  }
+
+  bool verifyDarkPair(Guest gOne, Guest gTwo) {
+    if (gOne.id != gTwo.id) {
+      if (isDarkPair(gOne, gTwo) == false) {
+        if (availabeDarkPair(inDarkPairs(gOne)) &&
+            availabeDarkPair(inDarkPairs(gTwo))) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  bool availabeDarkPair(int x) {
+    if ((guests.length % 2) == 1) {
+      if (((guests.length - 1) - x) <= 2) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (((guests.length - 1) - x) <= 1) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+  }
+
+  int inDarkPairs(Guest guest) {
+    return _darkPairs
+        .where((element) =>
+            (element.pair[0].id == guest.id || element.pair[1].id == guest.id))
+        .length;
+  }
 
   void addDarkPair(Guest gOne, Guest gTwo) {
     _darkPairs.add(_createDarkPair(null, gOne, gTwo));

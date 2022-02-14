@@ -71,16 +71,17 @@ class _DarkPairsScreenState extends State<DarkPairsScreen> {
                   textAlign: TextAlign.justify,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24),
-                child: DarkPairListWidget(
-                  pairs: event.darkPairs,
-                  function:
-                      (BuildContext context, DarkPair darkPair, Event event) {
-                    _openDarkPairModal(context, darkPair, event);
-                  },
+              if (event.darkPairs.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(top: 24),
+                  child: DarkPairListWidget(
+                    pairs: event.darkPairs,
+                    function:
+                        (BuildContext context, DarkPair darkPair, Event event) {
+                      _openDarkPairModal(context, darkPair, event);
+                    },
+                  ),
                 ),
-              ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
                 child: AddItemWidget(

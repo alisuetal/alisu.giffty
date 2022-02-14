@@ -4,6 +4,7 @@ import 'package:giffty_flutter/components/reveal_button_widget.dart';
 import 'package:giffty_flutter/components/screen_holder_widget.dart';
 import 'package:giffty_flutter/models/pair.dart';
 import 'package:giffty_flutter/utils/app_routes.dart';
+import 'package:giffty_flutter/utils/palette.dart';
 
 class PairRevealScreen extends StatefulWidget {
   final void Function(BuildContext) headerFunction;
@@ -21,7 +22,7 @@ class PairRevealScreen extends StatefulWidget {
 class _PairRevealScreenState extends State<PairRevealScreen> {
   late Pair currentPair;
   late int index = 0;
-  late String title = "";
+  List<String> title = [];
   void _nextScreen(BuildContext context) {
     Navigator.of(context).pushNamed(AppRoutes.END);
   }
@@ -55,11 +56,15 @@ class _PairRevealScreenState extends State<PairRevealScreen> {
   void _setTitle(String gOne, String? gTwo) {
     if (gTwo != null) {
       setState(() {
-        title = gOne + " got " + gTwo + "!";
+        title.insert(0, " got ");
+        title.insert(1, gTwo);
+        title.insert(2, "!");
       });
     } else {
       setState(() {
-        title = gOne + " got...";
+        title.insert(0, " got...");
+        title.insert(1, "");
+        title.insert(2, "");
       });
     }
   }
@@ -80,10 +85,31 @@ class _PairRevealScreenState extends State<PairRevealScreen> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24),
-                child: Text(
-                  title, //widget.pair.pair[0].name + " got...",
-                  style: Theme.of(context).textTheme.headline1,
-                  textAlign: TextAlign.justify,
+                child: Row(
+                  children: [
+                    Text(
+                      currentPair.pair[0].name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(color: PaletteColor.palette),
+                    ),
+                    Text(
+                      title[0],
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                    Text(
+                      title[1],
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1!
+                          .copyWith(color: PaletteColor.palette),
+                    ),
+                    Text(
+                      title[2],
+                      style: Theme.of(context).textTheme.headline1,
+                    ),
+                  ],
                 ),
               ),
             ],

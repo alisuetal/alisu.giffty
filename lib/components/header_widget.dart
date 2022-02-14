@@ -52,7 +52,7 @@ class HeaderWidget extends StatelessWidget {
           onTap: () => headerFunction(context),
           child: SvgPicture.asset(
             "assets/imgs/icons/settingsIcon.svg",
-            height: 36,
+            height: 42,
             fit: BoxFit.scaleDown,
           ),
         ),
