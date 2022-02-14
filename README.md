@@ -1,7 +1,7 @@
 
-![enter image description here](https://i.imgur.com/E1wTIaw_d.webp?maxwidth=512&fidelity=grand)
+![enter image description here](https://i.imgur.com/JOTiiQN.png?maxwidth=512&fidelity=grand)
 
-Giffty is an open-source and flutter-built Secret Santa app that functions locally in your browser or device.
+Giffty is an open-source and flutter-built Secret Santa app that functions locally in your browser (through the link: https://giffty-flutter.netlify.com) or device (check releases for APKs and EXEs).
 
 # How does it work
 
